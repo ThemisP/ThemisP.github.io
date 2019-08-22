@@ -136,7 +136,7 @@
                 <div class="row">
                     <div class="col-sm">
                         <figure class="text-center">
-                            <img class="img-fluid w-auto border border-dark" src="img/computer_graphics/ray_tracer_5.PNG" alt="">
+                            <img class="img-fluid w-auto border border-dark" src="img/computer_graphics/ray_tracer_3.PNG" alt="">
                             <figcaption><strong>Figure 5</strong></figcaption>
                         </figure>
                     </div>
@@ -151,7 +151,9 @@
             <li>
                 <div class="row">
                     <div class="col-sm">
-                        Experimenting further with the Raytracer, I implemented Reflection, Refraction and combined them through the Fresnel Equation for transparent objects. Raytracing is a very good simulation of the real world which produces realistic and amazing results for computer graphics. It is computationally expensive though and even though optimizations such as Cramer's rule, render even this simple scene with anti-aliasing and reflection/refraction and transparency is very intense for a computer.
+                        Experimenting further with the Raytracer, I implemented Reflection, Refraction and combined them through the Fresnel Equation for transparent objects. Raytracing is a very good simulation of the real world which produces realistic and amazing results
+                        for computer graphics. It is computationally expensive though and even though optimizations such as Cramer's rule, render even this simple scene with anti-aliasing and reflection/refraction and transparency is very intense for
+                        a computer.
                     </div>
                     <div class="col-sm">
                         <figure class="text-center">
@@ -165,27 +167,27 @@
     </section>
 
     <section class="page-section" id="rasterizer">
-            <h2 class="text-center">Rasterizer</h2>
-            <p class="mx-3">Raytracing is a method which draws images of 3D scenes by tracing the light rays reaching the simulated camera.</p>
-            <ul class="mx-3">
-                <li>The first step is to realise how to represent objects as triangles and triangles as 3 vertices with a normal and a colour. This is a core concept of how items are stored and represented which is not only related to Raytracing but in many major
-                    3D software the idea of how objects are stored is similarly. (Although the representation with only vertices, normal and colour is overly simplistic)</li>
-                <li>
-                    <div class="row">
-                        <div class="col-sm">
-                            The core concept of Raytracing is how light bounces around in space. Raytracing is an attempt at simulating that behavior. This is done by shooting rays from the camera towards the objects in the scene and calculating the intersection of that ray with
-                            the objects, specifically the closest intersection. By sending a ray from each pixel of the screen through the virtual camera you can get the colour value of the closest intersection for each ray which results in the image shown
-                            in <strong>Figure 1</strong>.
-                        </div>
-                        <div class="col-sm">
-                            <figure class="text-center">
-                                <img class="img-fluid w-auto border border-dark" src="img/computer_graphics/ray_tracer_1.PNG" alt="">
-                                <figcaption><strong>Figure 1</strong></figcaption>
-                            </figure>
-                        </div>
+        <h2 class="text-center">Rasterizer</h2>
+        <p class="mx-3">Raytracing is a method which draws images of 3D scenes by tracing the light rays reaching the simulated camera.</p>
+        <ul class="mx-3">
+            <li>The first step is to realise how to represent objects as triangles and triangles as 3 vertices with a normal and a colour. This is a core concept of how items are stored and represented which is not only related to Raytracing but in many major
+                3D software the idea of how objects are stored is similarly. (Although the representation with only vertices, normal and colour is overly simplistic)</li>
+            <li>
+                <div class="row">
+                    <div class="col-sm">
+                        The core concept of Raytracing is how light bounces around in space. Raytracing is an attempt at simulating that behavior. This is done by shooting rays from the camera towards the objects in the scene and calculating the intersection of that ray with
+                        the objects, specifically the closest intersection. By sending a ray from each pixel of the screen through the virtual camera you can get the colour value of the closest intersection for each ray which results in the image shown
+                        in <strong>Figure 1</strong>.
                     </div>
-                </li>                
-            </ul>
+                    <div class="col-sm">
+                        <figure class="text-center">
+                            <img class="img-fluid w-auto border border-dark" src="img/computer_graphics/ray_tracer_1.PNG" alt="">
+                            <figcaption><strong>Figure 1</strong></figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </section>
 
 
