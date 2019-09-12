@@ -65,7 +65,10 @@
     </section>
 
     <section class="page-section" id="raytracer">
-        <h2 class="text-center">Raytracer</h2>
+        <h2 class="text-center">Raytracer
+            <a href="https://github.com/ThemisP/raytracer" class="btn btn-outline-primary" role="button"><img src="img/GitHub-Mark-64px.png" /></a>
+        </h2>
+
         <p class="mx-3">Raytracing is a method which draws images of 3D scenes by tracing the light rays reaching the simulated camera.</p>
         <ul class="mx-3">
             <li>The first step is to realise how to represent objects as triangles and triangles as 3 vertices with a normal and a colour. This is a core concept of how items are stored and represented which is not only related to Raytracing but in many major
@@ -167,25 +170,105 @@
     </section>
 
     <section class="page-section" id="rasterizer">
-        <h2 class="text-center">Rasterizer</h2>
-        <p class="mx-3">Raytracing is a method which draws images of 3D scenes by tracing the light rays reaching the simulated camera.</p>
+        <h2 class="text-center">Rasterizer
+            <a href="https://github.com/ThemisP/Rasterizer" class="btn btn-outline-primary" role="button"><img src="img/GitHub-Mark-64px.png" /></a>
+        </h2>
+        <p class="mx-3">Although Raytracing is simple and can simulate all kinds of phenomena, its speed is its disadvantage and therefore it is typically not used for real-time visualization. For those scenarios another method is used called Rasterization. Rasterization
+            is usually faster than Raytracing but it cannot easily and effectively simulate all illumination phenomena.</p>
         <ul class="mx-3">
-            <li>The first step is to realise how to represent objects as triangles and triangles as 3 vertices with a normal and a colour. This is a core concept of how items are stored and represented which is not only related to Raytracing but in many major
-                3D software the idea of how objects are stored is similarly. (Although the representation with only vertices, normal and colour is overly simplistic)</li>
+            <li>The first steps are the same as Raytracing, you have to represent objects using triangles, vertices and edges.</li>
             <li>
                 <div class="row">
                     <div class="col-sm">
-                        The core concept of Raytracing is how light bounces around in space. Raytracing is an attempt at simulating that behavior. This is done by shooting rays from the camera towards the objects in the scene and calculating the intersection of that ray with
-                        the objects, specifically the closest intersection. By sending a ray from each pixel of the screen through the virtual camera you can get the colour value of the closest intersection for each ray which results in the image shown
-                        in <strong>Figure 1</strong>.
+                        The concept of Rasterization is to get a 3D image convert it into a series of pixels dots or lines which when displayed together, create the view of the image with shapes. Basically getting a single perspective of the 3D image making it into 2D as a flat
+                        picture and then drawing on top correctly to give the illusion of depth. By calculating the projection of the 3 dimensional vertices onto a 2 dimensional plane that we want to view (our screen) we can plot the points and join them
+                        to create a wireframe of the image as shown in <strong>Figure 8</strong>.
                     </div>
                     <div class="col-sm">
                         <figure class="text-center">
-                            <img class="img-fluid w-auto border border-dark" src="img/computer_graphics/ray_tracer_1.PNG" alt="">
-                            <figcaption><strong>Figure 1</strong></figcaption>
+                            <img class="img-fluid w-auto border border-dark" src="img/computer_graphics/rasterizer_wireframe.PNG" alt="">
+                            <figcaption><strong>Figure 8</strong></figcaption>
                         </figure>
                     </div>
                 </div>
+            </li>
+            <li>
+                <div class="row">
+                    <div class="col-sm">
+                        <strong>Interpolation:</strong> In Rasterization interpolating between two points to find the pixels necessary to draw the image is very crucial. To draw inside a triangle correctly, first you need to interpolate between the vertices
+                        and find the bounding left and right pixels for each y-level, then you fill the triangle by drawing lines for each y-level reaching between the left the right most pixel at that row. The process is to identify the outline of the
+                        triangle and then row by row draw the required colour. <strong>Figure 9</strong> shows the result of that process.
+                    </div>
+                    <div class="col-sm">
+                        <figure class="text-center">
+                            <img class="img-fluid w-auto border border-dark" src="img/computer_graphics/rasterizer_interpolation.PNG" alt="">
+                            <figcaption><strong>Figure 9</strong></figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="row">
+                    <div class="col-sm">
+                        <strong>Depth Buffer:</strong> There is an apparent problem with the image in <strong>Figure 9</strong>, the blue box is drawn on top of the red box when it should be the opposite. This issue is emerged because the triangles are
+                        drawn in order without any consideration for the depth of each triangle and therefore they overwrite the pixel colour. The solution for this issue is to introduce a depth buffer where each pixel drawn on screen keeps some information
+                        about its depth and then if another triangle tries to draw on that pixel it will first check if it is in front of the previously drawn pixel and only then it will overwrite it. However the information stored for depth (z value)
+                        is not depth it self, its the inverse of depth (1/z value). The reason for storing the inverse of depth is because in 3D the depth is linearly interpolated across two vertices but in its projection in 2D, depth cannot be linearly
+                        interpolated, instead the inverse of depth will vary linearly and therefore it makes the interpolating calculations much easier. <strong>Figure 10</strong> shows the results after introducing the depth buffer.
+                    </div>
+                    <div class="col-sm">
+                        <figure class="text-center">
+                            <img class="img-fluid w-auto border border-dark" src="img/computer_graphics/rasterizer_depth_buffer.PNG" alt="">
+                            <figcaption><strong>Figure 10</strong></figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="row">
+                    <div class="col-sm">
+                        <strong>Per Pixel illumination:</strong> to produce illumination results for each pixel, you have to store the 3D position for every pixel through interpolation and then use that 3D position to calculate the correct colour to be
+                        drawn for that pixel. The perspective correct interpolated 3D values need to be calculated otherwise the lighting on the image will look odd. <strong>Figure 11</strong> shows the effects of the per pixel illumination.
+                    </div>
+                    <div class="col-sm">
+                        <figure class="text-center">
+                            <img class="img-fluid w-auto border border-dark" src="img/computer_graphics/rasterizer_illumination.PNG" alt="">
+                            <figcaption><strong>Figure 11</strong></figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="row">
+                    <div class="col-sm">
+                        <strong>Clipping:</strong> Referencing back to the depth buffer, we said that the inverse of the depth is stored in there but what happens if the depth is 0? Division by zero is a problem and in fact the closer a triangle is to
+                        the camera th bigger a number is thus making the division and the storage of the inverse of depth a performance issue. Other issues is that even if objects are behind or not located in the field of view of the screen, are processed.
+                        Clipping is a major performance optimization which allows for objects only found in the view space of the camera to be visible which is the left,right, top and bottom clipping but also front and back clipping allows for things
+                        that are pretty far away to not be rendered or items behind the camera. <strong>Figure 12</strong> shows front clipping where the red box is sliced because it is too close to the camera. Clipping in this example slices the red
+                        box and more smaller triangles are created to account for the shape change in the picture. Clipping is usually performed in <strong>Homogeneous coordinates</strong> as it is an easier method to check if a point lies inside or outside
+                        the viewing volume.
+                    </div>
+                    <div class="col-sm">
+                        <figure class="text-center">
+                            <img class="img-fluid w-auto border border-dark" src="img/computer_graphics/rasterizer_clipping.PNG" alt="">
+                            <figcaption><strong>Figure 12</strong></figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <strong>Procedural Generation and Perlin Noise:</strong> Lastly I got involved with some simple procedural generation techniques. I wanted to create a terrain like object that would feel like mountains and valleys, completely generated
+                by a function. Kin Perlin noise is in simple terms a mathematical noise function that when viewed from a distance it seems like the values are randomly generated but when you look at a value you can see that there is a correlation between
+                it and its neighboring values. This property of the function creates a smooth transition between values but also a pseudo-random pattern in general. To create the terrain, I started by generating a flat grid of vertices and then joining
+                them in triangles. Using a 2 dimensional version of the Perlin noise, I determined each vertex height (y-value) from its x and z coordinate and matched it to a point in Perlin noise function. Playing around with the scale of the Perlin
+                noise in order to find a configuration that seemed good. To finish off the "illusion" of a terrain I added a colour pallette so that low height levels would be blue, then cyan, then green then white with a blending option between the colours
+                for a smooth transition. The end result is shown in <strong>Figure 13</strong>.
+
+                <figure class="text-center">
+                    <img class="img-fluid w-auto border border-dark" src="img/computer_graphics.png" alt="">
+                    <figcaption><strong>Figure 13</strong></figcaption>
+                </figure>
             </li>
         </ul>
     </section>
