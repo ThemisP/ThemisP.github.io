@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Image Processing and Computer Vision</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="css/agency.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="index.html#page-top">Personal</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="index.html#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="index.html#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#viola-jones">Viola-Jones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#hough_space_detectors">Hough Space Detectors</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="masthead" style="background-image: url(./img/ipcv.jpg)">
+        <div class="container">
+            <div class="intro-text">
+
+                <div class="intro-lead-in text-uppercase">Image Processing and Computer Vision</div>
+                <div class="intro-lead-in">Detection of dart boards in images</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-section">
+        <h2 class="text-center">
+            Introduction
+            <a href="https://github.com/ThemisP/Coursework1_IPCV" class="btn btn-outline-primary" role="button"><img src="img/GitHub-Mark-64px.png" /></a>
+        </h2>
+        <p class="mx-3">
+            This project is focused on creating an algorithm that can correctly identify dart boards on images. The start of the algorithm is a Viola-Jones detector that is given many positive and negative images in order to train the classifier and then it is paired
+            with both a line and circle detector in hough space so as to correctly identify the lines of a dart board. The language used here is C++.
+        </p>
+    </section>
+
+    <section class="page-section" id="viola-jones">
+        <h2 class="text-center">Viola-Jones Object Detection
+        </h2>
+
+        <p class="mx-3">Using 500 samples of positive images (ie. images of dart boards) taken at different angles, and another 500 images showing what is not a dart board, the Viola-Jones classifier was trained to try and detect dart boards correctly. There are 15 dart
+            images in which the algorithm is tested on, the red squares are predefined areas which we consider ground truth and the green squares are the algorithms results. The results as shown in <strong>Figures 1, 2, 3 and 4</strong> reveal that the
+            classifier is not strong enough and although for example in all four images the classifier finds the dartboards (true positive rate 100%), it also finds many false positives which is not ideal. Depending on the use of the classifier sometimes
+            the ideal is this but we are aiming for accuracy here therefore the results are not good yet.
+        </p>
+        <div class="row mx-3">
+            <div class="col-sm">
+                <figure class="text-center">
+                    <img class="img-fluid w-auto border border-dark" src="img/ipcv/dart1_detected.jpg" alt="">
+                    <figcaption><strong>Figure 1</strong></figcaption>
+                </figure>
+            </div>
+            <div class="col-sm">
+                <figure class="text-center">
+                    <img class="img-fluid w-auto border border-dark" src="img/ipcv/dart11_detected.jpg" alt="">
+                    <figcaption><strong>Figure 2</strong></figcaption>
+                </figure>
+            </div>
+        </div>
+        <div class="row mx-3">
+            <div class="col-sm">
+                <figure class="text-center">
+                    <img class="img-fluid w-auto border border-dark" src="img/ipcv/dart15_detected.jpg" alt="">
+                    <figcaption><strong>Figure 3</strong></figcaption>
+                </figure>
+            </div>
+            <div class="col-sm">
+                <figure class="text-center">
+                    <img class="img-fluid w-auto border border-dark" src="img/ipcv/dart13_detected.jpg" alt="">
+                    <figcaption><strong>Figure 4</strong></figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="hough_space_detectors">
+        <h2 class="text-center">Hough Space Detectors
+        </h2>
+
+        <p class="mx-3">
+            <strong>Hough Space Line Detector:</strong> To extend the Viola-Jones detector and improve our results, we implemented a Hough Space Line Detector. Instead of taking into consideration the whole image for our Hough Space, we used the resulting
+            detected boxes from the Viola-Jones to find the threshold magnitude image of each box <strong>Figures 5 and 8</strong>. Then we implemented the Hough Transform for Line detection in each of the boxes <strong>Figures 6 and 9</strong>. We set
+            the threshold to 70 so that only the lines with the higher votes are considered, and then we set as a condition that there are at least 10 lines in each of the detected boxes. The boxes that fulfilled the conditions above were classified as
+            valid detections, and were kept in the image
+            <strong>Figure 7</strong>.
+        </p>
+        <div class="row mx-3">
+            <div class="col-sm">
+                <figure class="text-center">
+                    <img class="img-fluid w-auto border border-dark" src="img/ipcv/dart0_detected_magnitude.jpg" alt="">
+                    <figcaption><strong>Figure 5</strong>: Magnitude image of the detected square containing the dartboard in image dart0.jpg.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-sm">
+                <figure class="text-center">
+                    <img class="img-fluid w-auto border border-dark" src="img/ipcv/dart0_detected_houghSpace.jpg" alt="">
+                    <figcaption><strong>Figure 6</strong>: Hough Space for line detection of the detected square containing the dartboard in image dart0.jpg.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-sm">
+                <figure class="text-center">
+                    <img class="img-fluid w-auto border border-dark" src="img/ipcv/dart0_detected_sb3.jpg" alt="">
+                    <figcaption><strong>Figure 7</strong>: Improved detection with the implementation of the Hough Line Detector on image dart0.jpg.
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+        <div class="row mx-3">
+            <div class="col-sm">
+                <figure class="text-center">
+                    <img class="img-fluid w-auto border border-dark" src="img/ipcv/dart2_detected_magnitude.jpg" alt="">
+                    <figcaption><strong>Figure 8</strong>: Magnitude image of the detected square containing the dartboard in image dart2.jpg.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-sm">
+                <figure class="text-center">
+                    <img class="img-fluid w-auto border border-dark" src="img/ipcv/dart2_detected_houghSpace.jpg" alt="">
+                    <figcaption><strong>Figure 9</strong>: Hough Space for line detection of the detected square containing the dartboard in image dart2.jpg.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-sm">
+                <figure class="text-center">
+                    <img class="img-fluid w-auto border border-dark" src="img/ipcv/dart2_detected_sb3.jpg" alt="">
+                    <figcaption><strong>Figure 10</strong>: Detection of dartboard failed with Hough Line Detector in image dart2.jpg.
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+        <p class="mx-3">
+            <strong>Merits and Limitations:</strong> There is a noticeable increase in the average F1-score of the table below, compared to the average F1-score of the Viola-Jones detection alone. However, although in most images our improved detector
+            managed to have a very high accuracy by achieving high TPR and very low FPR, such as the one shown in Figure 13, in some images it sabotaged the results by discarding previously correctly detected dartboards. An example of the latter is shown
+            in Figure 16. There is a noticeable increase in the accuracy of the algorithm since it manages to decrease the false positives of the image as it considers stricter rules for classifying a section of the image as a dart board. The limitation
+            of the classifier is that it does not consider other sections of the image, only those detected by Viola-Jones and sometimes this will not even help the classifier identify the dart board at all, such a result is shown in <strong>Figure 10</strong>.
+        </p>
+        <p class="mx-3">
+            <strong>Rationale:</strong> The idea behind this way of implementing the combination of the two algorithms in conjunction, is that if you "relax" the Viola-Jones classifier enough, there is a point were you can achieve 100% true positive rate.
+            If at that point then having stricter rules on top of Viola-Jones would help decrease the enormous false positive rate and become accurate enough with extremely good efficiency since the Hough Space Line detector would not operate on the whole
+            image.
+        </p>
+        <p class="mx-3">
+            <strong>Hough Transform Circle Detector:</strong> In addition to the line detector added on top of the Viola-Jones detector, Hough Transform Circle Detection can allow for a more accurate and better detector. As mentioned previously by "relaxing"
+            a detection algorithm we can achieve higher true positive rate but also false positive rate as well. Therefore we lowered the threshold of the line detector and added the Circle detector creating a complex network of algorithms working in
+            conjunction to produce a more accurate result. As an example the results for the image in <strong>Figure 10</strong> were drastically improved as shown by <strong>Figure 11</strong> and also <strong>Figure 12</strong>.
+        </p>
+        <div class="row mx-3">
+            <div class="col-sm">
+                <figure class="text-center">
+                    <img class="img-fluid w-auto border border-dark" src="img/ipcv/dart2_detected_sb4.jpg" alt="">
+                    <figcaption><strong>Figure 11</strong>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-sm">
+                <figure class="text-center">
+                    <img class="img-fluid w-auto border border-dark" src="img/ipcv/dart5_detected_sb4.jpg" alt="">
+                    <figcaption><strong>Figure 12</strong>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+
+</html>
