@@ -211,9 +211,37 @@ header.masthead .intro-text .intro-heading {
     font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'
 }
 
+
+/* This is for page header images */
+
 #computerGraphics {
     background-image: url(../img/computer_graphics.png);
 }
+
+#ipcv {
+    background-image: url(../img/ipcv.jpg);
+}
+
+#modelling {
+    background-image: url(../img/3d_graphics.jpeg);
+}
+
+#tourney_Runner {
+    background-image: url(../img/tourney_runner.png);
+}
+
+
+/* ================= */
+
+
+/* Custom */
+
+.max-width-720 {
+    max-width: 720px;
+}
+
+
+/* ==================== */
 
 @media (min-width:768px) {
     header.masthead .intro-text {
@@ -234,6 +262,10 @@ header.masthead .intro-text .intro-heading {
         margin-bottom: 50px;
         font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'
     }
+}
+
+.intro-text {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.2) 25%, rgba(0, 0, 0, 0.2) 75%, rgba(255, 255, 255, 0) 100%);
 }
 
 .service-heading {
