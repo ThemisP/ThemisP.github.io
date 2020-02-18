@@ -155,8 +155,7 @@
                 <div class="row">                    
                     <div class="col-sm">
                         <p>
-                                The chain works by instantiating chain nodes (white boxes in <strong>Figure 1</strong>)  that act as intermediate points in a chain that simulate forces between one another. A chain can be instantiated with as many chain nodes as needed (the more nodes, the more realistic the chain) and each chain node pulls on to its predecessor using spring forces. If a chain node gets far apart from its linked nodes, it is pulled back towards them. The equation for spring is shown in <strong>Figure 2</strong>, and is coded with an added dampening constant that counters that force. (Code => float force = −tensionConstant ∗ displacement
-                                − dampeningConstant ∗ handle1.velocity.magnitude;)
+                            Another fundamental aspect of the gameplay is the Fog of War. This implements a limited vision system such that players can only view what their actual character and their teammate's character is able to view. This enabled players to hide from enemies or even ambush enemies without being noticed when they enter the screen range of them. This is a simple mechanic but very powerful that adds depth to the game and more interactions between teams. 
                         </p>
                     </div>  
                     <div class="col-sm">
@@ -172,7 +171,7 @@
                 The fog of war was done by casting multiple rays in a circle from the player, which detect whether or not they hit an object. The edge detection of the rays becomes more accurate as the density of the rays increases. In order to improve the performance of the edge detection, an optimisation was applied. If a ray cast detects an object and the next one doesn’t, this is normally seen as the end of the object, but the actual edge is in-between them. In order to get closer to the actual edge, a method similar to binary search was used, which casts another ray at the mid point between them and checks on which side the actual edge is. This is done for a couple of iterations to increase the precision of the edge detection. This means that the field of view doesn’t need to have a really high density in order to accurately detect objects.
             </p>
             <p class="mx-3">
-                The ray casts are used to draw a mesh around the player, which is then drawn onto a texture file from the perspective of an orthographic camera that sees the whole map. The texture is blurred and then projected onto the map by a projector put in the same place as the camera. The shader of the projector makes it so that only the area within the field of view mesh is lighted, while the rest of the map is in a fog of war. The projector also blends any new textures, which results in a smooth transition.
+                The ray casts are used to draw a mesh around the player (<strong>Figure 3</strong>), which is then drawn onto a texture file from the perspective of an orthographic camera that sees the whole map. The texture is blurred and then projected onto the map by a projector put in the same place as the camera. The shader of the projector makes it so that only the area within the field of view mesh is lighted, while the rest of the map is in a fog of war. The projector also blends any new textures, which results in a smooth transition.
             </p>
 
             <h3 class="mx-2">
