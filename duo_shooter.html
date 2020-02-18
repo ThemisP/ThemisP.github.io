@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Duo Shooter</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet'
+        type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="css/agency.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="index.html#page-top">Personal</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="index.html#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="index.html#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#gameplay">Gameplay</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#server">Server</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#contribution">Contribution</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="masthead" id="duoShooter">
+        <div class="container">
+            <div class="intro-text">
+
+                <div class="intro-lead-in text-uppercase">Duo Shooter - "Chain Reaction"</div>
+                <div class="intro-lead-in">Multiplayer game created in unity and socket server through .NET Framework</div>
+            </div>
+        </div>
+        </div>
+    </header>
+
+    <section class="page-section">
+        <div class="container">
+            <h2 class="text-center">
+                Introduction
+            </h2>
+            <p class="mx-3">
+                Game Overview: "Chain Reaction is a top-down shooter, battle royal style game with limited weapon upgrades. Start the game in a prison chained to a teammate and scavenge the map for healing kits and weapon upgrades. Prepare yourself for enemy team encounters and cooperate with your teammate to stay alive until the end, after all you are chained together so your movement is dependent on each other. Be careful of the storm closing in on you it is deadly. Last team alive gets to escape the prison!"
+            </p>
+            <p class="mx-3">
+                An attempt at creating a multiplayer battle-royale style top-down shooter game. In a team fo 6, we used <strong>Unity</strong> to create the game, <strong>C# .Net Framework</strong> to create a server that hosts multiple players and runs game Logic and also used <strong>Autodesk Maya</strong> for the creation of 3D assets used in our level. I will overview technical aspects of the process and at the end also explain my role and the tasks I undertook as a lead programmer.
+            </p>
+            <p class="mx-3">
+                At the very early stages of implementation, we decided to split the work into 3 pairs and therefore have a simple separation of workload between people. The first group was the Graphics group, responsible for the creation of 3D assets, level design, and aesthetics. The second was the Gameplay group, responsible for the client-side game-related content, such as implementing movement, upgrades, and other gameplay features. Lastly, the third group was the Server group responsible for creating a server to host multiple client communications and allow for the multiplayer experience that a battle-royale game needs to offer. As I was part of mostly the gameplay and server team I will discuss those parts in detail in the following 2 sections and I will also add a third section discussing my contributions to the project.
+            </p>
+            <figure class="text-center">
+                <img class="img-fluid border border-dark" width="400" src="img/duo_shooter/Logo_circle_design2.jpg"
+                    alt="">
+                <figcaption>Chain Rection</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section class="page-section" id="gameplay">
+        <div class="container">
+            <h2 class="text-center">
+                Gameplay
+                <a href="https://github.com/ThemisP/GamesProject/" class="btn btn-outline-primary" role="button"><img
+                    src="img/GitHub-Mark-64px.png" /></a>
+            </h2>
+
+            <p class="mx-3">
+                Our game is a top-down, battle-royale style shooter aimed for massive multiplayer play. Despite the genre of our game, there is a small back-story that explains the setting of our arena. Our game takes place inside a prison, where the inmates were used as lab rats in scientific experiments designed to evolve the human race. The experiments were not leading to anywhere and the prisoners had to be exterminated after the failure so that no one could ever know what was happening. This small back-story sets the design of the arena such that there is a prison like map around the outskirts that eventually leads to a laboratory filled with surgery tables, to Liquid tanks with humans inside and even big boiling tanks of acid. In order to eliminate all the prisoners, a huge gas attack was unleashed on the prison surrounding it and rushing towards the middle.
+            </p>
+
+            <p class="mx-3">
+                The controls for the players were very simple, use "WASD" for moving around, use the mouse to aim, left click to fire and right-click to use the ability dodge. As a design choice, we decided to have the bullets move slower than usual so that players could potentially dodge them and with an added ability, "dodge", that made them invulnerable for a fraction of a second. In addition, the game was designed to be played in pairs. We wanted to keep the controls of the player simple, in order to add a layer of complexity to the game in the interaction between the two players. Making use of the prison theme of our game, we created a chain that binds the two players together.
+            </p>
+
+            <div class="embed-responsive embed-responsive-16by9 max-width-720 mx-auto">
+                <iframe class="shadow-sm p-3 mb-5 bg-white rounded border border-light embed-responsive-item"
+                    src="https://www.youtube.com/embed/K2sGvPGt5D0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+
+            <h3 class="mx-2">
+                Chain 
+            </h3>
+            <p class="mx-3">
+                <div class="row">
+                    <div class="col-sm">
+                        <p>
+                            Implementing a chain between two players was one of the more challenging tasks we tackled as a team. Unity's built-in functionality was not sufficient as we aimed for a very customizable solution and one that would allow us to port it onto the server-side later for the multiplayer aspect. After some research, I learned that many people attempting to simulate a rope would do it using spring physics and after reading some spring mechanics, I designed a simple system shown in <strong>Figure 1</strong>.
+                        </p>
+                    </div>
+                    <div class="col-sm">
+                        <figure class="text-center">
+                            <img class="img-fluid w-auto border border-dark" src="img/duo_shooter/phase_2_chain.PNG"
+                                alt="">
+                            <figcaption><strong>Figure 1:</strong> Chain structure</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </p>
+
+            <p class="mx-3">
+                <div class="row">
+                    <div class="col-sm">
+                        <figure class="text-center">
+                            <img class="img-fluid w-auto border border-dark" src="img/duo_shooter/spring_force_formula.jpg"
+                                alt="">
+                            <figcaption><strong>Figure 2:</strong> Spring Force formula</figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-sm">
+                        <p>
+                                The chain works by instantiating chain nodes (white boxes in <strong>Figure 1</strong>)  that act as intermediate points in a chain that simulate forces between one another. A chain can be instantiated with as many chain nodes as needed (the more nodes, the more realistic the chain) and each chain node pulls on to its predecessor using spring forces. If a chain node gets far apart from its linked nodes, it is pulled back towards them. The equation for spring is shown in <strong>Figure 2</strong>, and is coded with an added dampening constant that counters that force. (Code => float force = −tensionConstant ∗ displacement
+                                − dampeningConstant ∗ handle1.velocity.magnitude;)
+                        </p>
+                    </div>                            
+                </div>
+            </p>
+
+            <h3 class="mx-2">
+                Fog of War
+            </h3>
+            <p class="mx-3">
+                <div class="row">                    
+                    <div class="col-sm">
+                        <p>
+                                The chain works by instantiating chain nodes (white boxes in <strong>Figure 1</strong>)  that act as intermediate points in a chain that simulate forces between one another. A chain can be instantiated with as many chain nodes as needed (the more nodes, the more realistic the chain) and each chain node pulls on to its predecessor using spring forces. If a chain node gets far apart from its linked nodes, it is pulled back towards them. The equation for spring is shown in <strong>Figure 2</strong>, and is coded with an added dampening constant that counters that force. (Code => float force = −tensionConstant ∗ displacement
+                                − dampeningConstant ∗ handle1.velocity.magnitude;)
+                        </p>
+                    </div>  
+                    <div class="col-sm">
+                        <figure class="text-center">
+                            <img class="img-fluid w-auto border border-dark" src="img/duo_shooter/fov-mesh.png"
+                                alt="">
+                            <figcaption><strong>Figure 3:</strong> Field of view for the player</figcaption>
+                        </figure>
+                    </div>                          
+                </div>
+            </p>
+            <p class="mx-3">
+                The fog of war was done by casting multiple rays in a circle from the player, which detect whether or not they hit an object. The edge detection of the rays becomes more accurate as the density of the rays increases. In order to improve the performance of the edge detection, an optimisation was applied. If a ray cast detects an object and the next one doesn’t, this is normally seen as the end of the object, but the actual edge is in-between them. In order to get closer to the actual edge, a method similar to binary search was used, which casts another ray at the mid point between them and checks on which side the actual edge is. This is done for a couple of iterations to increase the precision of the edge detection. This means that the field of view doesn’t need to have a really high density in order to accurately detect objects.
+            </p>
+            <p class="mx-3">
+                The ray casts are used to draw a mesh around the player, which is then drawn onto a texture file from the perspective of an orthographic camera that sees the whole map. The texture is blurred and then projected onto the map by a projector put in the same place as the camera. The shader of the projector makes it so that only the area within the field of view mesh is lighted, while the rest of the map is in a fog of war. The projector also blends any new textures, which results in a smooth transition.
+            </p>
+
+            <h3 class="mx-2">
+                Upgrades
+            </h3>
+            <p class="mx-3">
+                <div class="row">                    
+                    <div class="col-sm">
+                        <p>
+                            Every player started with a basic pistol that could later upgrade to one of three options, a rifle that has a high fire rate, medium-range, and medium-damage, a shotgun that has low fire rate, low-range, high-damage, and 3 bullets spread and lastly a sniper that has low fire rate, high-range, and high damage. Players would have to find upgrade tokens that are randomly scattered around the map and use the upgrade menu to upgrade their weapons as shown in <strong>Figure 4</strong>. In addition, other than upgrade tokens there were some health packs scattered as well that helped the player regain some health. 
+                        </p>
+                    </div>  
+                    <div class="col-sm">
+                        <figure class="text-center">
+                            <img class="img-fluid w-auto border border-dark" src="img/duo_shooter/upgrade_Screen.JPG"
+                                alt="">
+                            <figcaption><strong>Figure 4:</strong> Upgrade menu</figcaption>
+                        </figure>
+                    </div>                          
+                </div>
+            </p>
+        </div>
+    </section>
+
+    <section class="page-section" id="server">
+        <div class="container">
+            <h2 class="text-center">
+                Server
+                <a href="https://github.com/ThemisP/ServerApplication" class="btn btn-outline-primary" role="button"><img
+                    src="img/GitHub-Mark-64px.png" /></a>
+            </h2>
+
+            
+        </div>
+    </section>
+
+    <section class="page-section" id="contribution">
+            <div class="container">
+                <h2 class="text-center">
+                    Contribution
+                </h2>
+                <p class="mx-3">
+                    
+                </p>
+            </div>
+        </section>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+</html>
