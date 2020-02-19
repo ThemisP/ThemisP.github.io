@@ -82,7 +82,7 @@
             <figure class="text-center">
                 <img class="img-fluid border border-dark" width="400" src="img/duo_shooter/Logo_circle_design2.jpg"
                     alt="">
-                <figcaption>Chain Rection</figcaption>
+                <figcaption>Chain Reaction</figcaption>
             </figure>
         </div>
     </section>
@@ -181,7 +181,7 @@
                 <div class="row">                    
                     <div class="col-sm">
                         <p>
-                            Every player started with a basic pistol that could later upgrade to one of three options, a rifle that has a high fire rate, medium-range, and medium-damage, a shotgun that has low fire rate, low-range, high-damage, and 3 bullets spread and lastly a sniper that has low fire rate, high-range, and high damage. Players would have to find upgrade tokens that are randomly scattered around the map and use the upgrade menu to upgrade their weapons as shown in <strong>Figure 4</strong>. In addition, other than upgrade tokens there were some health packs scattered as well that helped the player regain some health. 
+                            Every player starts with a basic pistol that could later upgrade to one of three options, a rifle that has a high fire rate, medium-range, and medium-damage, a shotgun that has low fire rate, low-range, high-damage, and 3 bullets spread and lastly a sniper that has low fire rate, high-range, and high damage. Players have to find upgrade tokens that are randomly scattered around the map and use the upgrade menu to upgrade their weapons as shown in <strong>Figure 4</strong>. In addition, other than upgrade tokens there are health packs scattered as well that help the player regain some health. 
                         </p>
                     </div>  
                     <div class="col-sm">
@@ -203,18 +203,119 @@
                 <a href="https://github.com/ThemisP/ServerApplication" class="btn btn-outline-primary" role="button"><img
                     src="img/GitHub-Mark-64px.png" /></a>
             </h2>
+            <h3 class="mx-2">
+                Planning-Initial stages
+            </h3>
+            <p class="mx-3">
+                In the early stages of planning, deciding which technology to use for the development of the multiplayer aspect of the game was difficult. Nobody in the team had prior knowledge of how multiplayer is done in games. It was clear that since we were building a battle-royale style game that we needed a client-server style of communication. Initially, we discussed the possibility of using <strong>Unity's</strong> built-in <strong>UNet</strong> functionality but soon realized that it didn't support the client-server model.
+            </p>
+            <p class="mx-3">
+                Then discovered <strong>Photon</strong>, which is a framework, that is easy to use and fast to implement. It has support for Unity and also its own cloud <strong>(Photon cloud)</strong> which supports very easy deployment.  We started implementing connecting players in a server, then implemented movement in multiplayer together with movement prediction and smoothing. As the game progressed and needed more and more specific server-side functionality, we ran into many problems. Photon was a very easy solution but with a significant limitation in customizability.
+            </p>
+            <p class="mx-3">
+                Lastly, after more research, we decided to build our own server implementation, as a <strong>C# console</strong> application and using <strong>.NET Framework WebSockets</strong> which is further expanded upon here.
+            </p>
 
-            
+            <h3 class="mx-2">
+                Server Architecture
+            </h3>
+            <p class="mx-3">
+                <div class="row">                    
+                    <div class="col-sm">
+                        <p>
+                            The server is based on a singleton class called "network". "Network" is a layer that controls all traffic for the server both inbound and outbound.  Inbound traffic gets processed using the ServerHandlePackets and outbound using another ServerSendPackets. Each different client connecting to the server is stored as an instance of the Client class which keeps data of the connected clients and is used for identification and broadcasting of data. The state of the game is also stored in the server through many classes such as Player, GameHandler, and RoomHandler. Storing player's data such as location, health, and weapon allows the game to have a consistent state throughout all the clients. 
+                        </p>
+                    </div>  
+                    <div class="col-sm">
+                        <figure class="text-center">
+                            <img class="img-fluid w-auto border border-dark" src="img/duo_shooter/main_server.jpg"
+                                alt="">
+                            <figcaption><strong>Figure 5:</strong> Server UML-style diagram</figcaption>
+                        </figure>
+                    </div>                          
+                </div>
+            </p> 
+            <h3 class="mx-2">
+                Communication
+            </h3>
+            <p class="mx-3">
+                Improving the server in order to allow it to host multiple clients smoothly meant that we needed to think ahead and implement efficient ways of communication between server and clients. Working with WebSockets in .NET Framework meant that we had a lot of control over the communication methods. Our main efficiency of the server was the inclusion of different types of communication protocols. <strong>Transmission Control Protocol (TCP)</strong> is a way of communicating that includes and handshake and a validation step, which meant that there was a consistency when communicating through this protocol and the sender of a packed is notified if the communication was successful. In contrast, <strong>User Datagram Protocol (UDP)</strong> is a method of communication that simply sends data without any verification or "callback", which simply put, a sender sends information without caring whether the receiver has received them. Therefore, TCP is reliable but has a time overhead, whereas UDP is unreliable but fast. TCP was used in communicating important player data such as health and coins that were necessary for players to keep consistent. UDP was mainly used for player and bullet positioning as this kind of data was very rapidly changing and are sent at a very fast rate which means that validating a packet doesn't really matter if the next packet arrives before the validation of the previous one is done.
+            </p> 
+
+            <h3 class="mx-2">
+                Client Side
+            </h3>
+            <p class="mx-3">
+                <div class="row">                    
+                    <div class="col-sm">
+                        <p>
+                            Within the client side code, we tried to have simple but effective handling of networking. Core networking functionality is encapsulated in a Network class which is responsible for sending relevant data to the server and any responses or messages sent by the server are handle in a ClientHandlePackets class.
+                            <strong>Figure 6</strong> illustrates this relationship between the core game and the network. Similar to the server, low-level networking is managed via the .NET framework which handles the implementation of the TCP and UDP protocols. We aimed to make any server communication on the client side to be as simple as possible, as shown by the simplicity of the diagram. This allowed to develop code that could be incremental in which any data which we wanted to communicate client side could be handled through simple functions that send data in an easy to replicate format.
+                        </p>
+                    </div>  
+                    <div class="col-sm">
+                        <figure class="text-center">
+                            <img class="img-fluid w-auto border border-dark" src="img/duo_shooter/client_network.png"
+                                alt="">
+                            <figcaption><strong>Figure 6:</strong> Client side UML-style diagram</figcaption>
+                        </figure>
+                    </div>                          
+                </div>
+            </p>      
+
+            <h3 class="mx-2">
+                Running
+            </h3>
+            <p class="mx-3">
+                We have run our server in Amazon Web Services (AWS) and have at one instance managed to play with 40 players at the same time in a single game instance with no communication lag and smooth player and bullet movement.
+            </p>
+            <p class="mx-3">
+                (I will record and upload a video of actual multiplayer gameplay and put it here)
+            </p>
         </div>
     </section>
 
     <section class="page-section" id="contribution">
             <div class="container">
                 <h2 class="text-center">
-                    Contribution
+                    Personal Contribution
                 </h2>
                 <p class="mx-3">
-                    
+                    Having previous experience and knowledge with Unity, I became the Lead Programmer.Initially, prior to the creation of the three development teams, I started working with some basic playermovement and bullet firing. This was appreciated by the other members of the team and we decidedto make it our base and build every new feature on top of that. Therefore I set up that Unity projectin git and prepared the necessary gitignore and gitconfig files.   
+                </p>
+                <p class="mx-3">
+                    First iterations of Photon Network integration into the game were my attempts, in addition to helping other members of the Server-side development team how to use it. 
+                </p>
+                <p class="mx-3">
+                    Then as our attempts at Photon Network did not work out, I initiated the fully custom server development, while I programmed the core server and at the same time worked with other member helping them learn the framework and follow my code, I then had to leave the server development team and help out the Gameplay team.
+                </p>
+                <p class="mx-3">
+                    Working on the chain between the players, the Gameplay team had some trouble conceptualizing it and bringing it to life. I then attempted to create a small example of what my idea of the chain would look like and after some coding, I managed to create the basic prototype. I explained and worked with the Gameplay team to help them understand and continue the development of the chain but more difficulties presented and therefore I decided to finish the chain implementation my self while I let the Gameplay teamwork on the rest of the Gameplay features. In addition, I also worked on the task of implementing a revival system. It needed a parallel development of both server and client-side features, which me having worked on both, I could complete the task.
+                </p>
+                <p class="mx-3">
+                    I also worked a very minimal amount with the Graphics team, I help add some small touches around the game that made the experience feel more alive, such as particles on the bullet explode and a trail behind them, or even small sound effects together with the background music (which was created by another team member).
+                </p>
+                <p class="mx-3">
+                    <div class="row">                    
+                        <div class="col-sm">
+                            <p>
+                                As a lead programmer of the project, I decided very early on to use Trello boards as a means of keeping track of progress and pending tasks. In the beginning, I create a single board page and assigned different people tasks. This method fell apart very quickly and it was then that I realized that I needed a clear separation between people's tasks and a clear way of communicating their end goals. This was when I introduced the three-team strategy of Gameplay, Server, and Graphics. This strategy improved the team's efficiency and with three separate Trello boards, tasks were clearer and were completed faster. 
+                            </p>
+                        </div>  
+                        <div class="col-sm">
+                            <figure class="text-center">
+                                <img class="img-fluid w-auto border border-dark" src="img/duo_shooter/trello_boards.JPG"
+                                    alt="">
+                                <figcaption><strong>Figure 7:</strong> Client side UML-style diagram</figcaption>
+                            </figure>
+                        </div>                          
+                    </div>
+                </p>
+                <h3 class="mx-2">
+                    Personal Reflection
+                </h3>
+                <p class="mx-3">
+                    One thing I would definitely do better in the future would be to integrate the work between the teams consistently and frequently. We sometimes took even a whole month before merging everything together and having a workable product which meant that the merging was usually difficult and time-consuming. Another important lesson I learned for managing big projects is to put deadlines and clear goals. Having deadlines pushes people in putting work into the project and achieving tasks much faster and if the goals set are clear then the members will have very little trouble in implementing them. This project was a massive undertaking that improved my knowledge of game design, coding, server infrastructure, and architecture and also how people and teams work within bigger projects. 
                 </p>
             </div>
         </section>
